@@ -41,41 +41,104 @@
     if (e.key === 'Escape') closeMenu();
   });
 
+  /* ---------- Header search (keyword -> section) ---------- */
+  var searchMap = [
+    { id: 'doctors',     k: ['doctor', 'doctors', 'physician', 'expert', 'specialist', 'consultant', 'surgeon'] },
+    { id: 'services',    k: ['oncology', 'cancer', 'service', 'chemo', 'radiation', 'surgical', 'hemato', 'tumour', 'tumor', 'preventive'] },
+    { id: 'departments', k: ['center', 'centre', 'department', 'speciality', 'specialty', 'endocrin', 'gastro', 'medicine', 'nuclear'] },
+    { id: 'technology',  k: ['technology', 'mri', 'ct', 'pet', 'machine', 'equipment', 'scanner', 'linear', 'accelerator', 'siemens', 'mammograph'] },
+    { id: 'diagnostics', k: ['lab', 'laboratory', 'test', 'blood', 'diagnostic', 'imaging', 'ultrasound', 'xray', 'x-ray', 'pathology'] },
+    { id: 'packages',    k: ['package', 'checkup', 'check-up', 'screening', 'silver', 'gold'] },
+    { id: 'blog',        k: ['blog', 'news', 'article', 'library', 'media', 'story'] },
+    { id: 'about',       k: ['about', 'founder', 'vision', 'mission', 'phase'] },
+    { id: 'contact',     k: ['contact', 'appointment', 'book', 'call', 'phone', 'address', 'reach'] }
+  ];
+  function runSearch(q) {
+    q = (q || '').trim().toLowerCase();
+    if (!q) return;
+    var targetId = null;
+    for (var i = 0; i < searchMap.length && !targetId; i++) {
+      for (var j = 0; j < searchMap[i].k.length; j++) {
+        if (q.indexOf(searchMap[i].k[j]) > -1) { targetId = searchMap[i].id; break; }
+      }
+    }
+    var el = document.getElementById(targetId || 'contact');
+    if (el) el.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
+  }
+  ['siteSearch', 'siteSearchMobile'].forEach(function (id) {
+    var f = document.getElementById(id);
+    if (!f) return;
+    f.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var inp = f.querySelector('input');
+      runSearch(inp && inp.value);
+      if (id === 'siteSearchMobile') closeMenu();
+    });
+  });
+
+  /* ---------- Centers-of-Excellence mega-menu (desktop) ---------- */
+  var coeCats   = document.querySelectorAll('.coe-cat');
+  var coePanels = document.querySelectorAll('[data-coe-panel]');
+  function setCoe(idx) {
+    idx = String(idx);
+    coeCats.forEach(function (b) { b.classList.toggle('coe-active', b.getAttribute('data-coe') === idx); });
+    coePanels.forEach(function (p) { p.classList.toggle('hidden', p.getAttribute('data-coe-panel') !== idx); });
+  }
+  coeCats.forEach(function (b) {
+    b.addEventListener('mouseenter', function () { setCoe(b.getAttribute('data-coe')); });
+    b.addEventListener('focus',      function () { setCoe(b.getAttribute('data-coe')); });
+  });
+  /* releasing focus closes the hover/focus panel after a sub-link is chosen */
+  document.querySelectorAll('#coePanel .coe-sub').forEach(function (a) {
+    a.addEventListener('click', function () { if (a.blur) a.blur(); });
+  });
+
+  /* ---------- Centers-of-Excellence accordion (mobile) ---------- */
+  var coeAccBtn   = document.getElementById('coeAccBtn');
+  var coeAccPanel = document.getElementById('coeAccPanel');
+  var coeAccChev  = document.getElementById('coeAccChev');
+  if (coeAccBtn && coeAccPanel) {
+    coeAccBtn.addEventListener('click', function () {
+      var willOpen = coeAccPanel.classList.contains('hidden');
+      coeAccPanel.classList.toggle('hidden', !willOpen);
+      coeAccBtn.setAttribute('aria-expanded', String(willOpen));
+      if (coeAccChev) coeAccChev.style.transform = willOpen ? 'rotate(180deg)' : '';
+    });
+  }
+
   /* ---------- Doctors data + render ---------- */
   var doctors = [
-    { i: 'SM', n: 'Dr. Sowmya Maddireddy', r: 'Founder & Director',
+    { p: 'https://randomuser.me/api/portraits/women/44.jpg', n: 'Dr. Sowmya Maddireddy', r: 'Founder & Director',
       d: 'Dental surgeon with 15+ years in clinical dentistry and healthcare management, overseeing clinical quality and operations.' },
-    { i: 'VM', n: 'Dr. Vinodh Maddireddy', r: 'Founder & Director',
+    { p: 'https://randomuser.me/api/portraits/men/32.jpg', n: 'Dr. Vinodh Maddireddy', r: 'Founder & Director',
       d: 'Distinguished Radiation Oncologist with 15+ years of experience in advanced cancer treatment and comprehensive patient care.' },
-    { i: 'UK', n: 'Dr. G Uday Kiran', r: 'Director of Surgical Services',
+    { p: 'https://randomuser.me/api/portraits/men/45.jpg', n: 'Dr. G Uday Kiran', r: 'Director of Surgical Services',
       d: 'Meticulous, visionary surgeon with 15+ years of experience delivering painless surgeries and exceptional clinical outcomes.' },
-    { i: 'MM', n: 'Dr. Manasa Mynepally', r: 'Consultant Endocrinologist',
+    { p: 'https://randomuser.me/api/portraits/women/68.jpg', n: 'Dr. Manasa Mynepally', r: 'Consultant Endocrinologist',
       d: 'Research-driven endocrinologist and diabetologist with 10+ years managing diabetes, thyroid, PCOS and fertility issues.' },
-    { i: 'RR', n: 'Dr. C Raghavendra Reddy', r: 'Medical & Hemato Oncology',
+    { p: 'https://randomuser.me/api/portraits/men/52.jpg', n: 'Dr. C Raghavendra Reddy', r: 'Medical & Hemato Oncology',
       d: 'Two-time gold medalist specialising in breast, lung and blood cancers, delivering personalised, evidence-based cancer care.' },
-    { i: 'KH', n: 'Dr. K Harini', r: 'Nuclear Medicine Physician',
+    { p: 'https://randomuser.me/api/portraits/women/65.jpg', n: 'Dr. K Harini', r: 'Nuclear Medicine Physician',
       d: 'Expertise in advanced diagnostic imaging and targeted radionuclide therapies, with specialised PET-CT imaging experience.' },
-    { i: 'IV', n: 'Dr. Indu Varshini', r: 'Consultant General Medicine',
+    { p: 'https://randomuser.me/api/portraits/women/21.jpg', n: 'Dr. Indu Varshini', r: 'Consultant General Medicine',
       d: 'General physician experienced in outpatient, inpatient and emergency care, including Medical Intensive Care (MICU).' },
-    { i: 'SL', n: 'Dr. Sri Lekha', r: 'Consultant Anesthesiologist',
+    { p: 'https://randomuser.me/api/portraits/women/26.jpg', n: 'Dr. Sri Lekha', r: 'Consultant Anesthesiologist',
       d: 'Specialises in general and regional anesthesia, difficult airway management, pediatric anesthesia and ICU management.' },
-    { i: 'SP', n: 'Dr. Sowmya P', r: 'Consultant Dermatologist',
+    { p: 'https://randomuser.me/api/portraits/women/90.jpg', n: 'Dr. Sowmya P', r: 'Consultant Dermatologist',
       d: 'Skilled dermatologist (MBBS, MD DVL) with expertise in clinical dermatology, dermatosurgery, aesthetics and skin cancer care.' }
   ];
   var docGrid = document.getElementById('docGrid');
   if (docGrid) {
     docGrid.innerHTML = doctors.map(function (doc) {
       return [
-        '<article class="reveal group p-7 rounded-3xl bg-white ring-1 ring-brand-100 shadow-soft hover:shadow-card hover:-translate-y-1.5 transition">',
-        '  <div class="flex items-center gap-4">',
-        '    <span class="w-16 h-16 shrink-0 grid place-items-center rounded-2xl bg-gradient-to-br from-brand-600 to-rose-500 text-white font-display text-lg font-bold group-hover:scale-105 transition">' + doc.i + '</span>',
-        '    <div>',
-        '      <h4 class="font-display font-bold text-brand-900 leading-tight">' + doc.n + '</h4>',
-        '      <span class="text-sm font-semibold text-rose-500">' + doc.r + '</span>',
-        '    </div>',
+        '<article class="reveal group p-6 rounded-3xl bg-white ring-1 ring-brand-100 shadow-soft hover:shadow-card hover:-translate-y-1.5 transition text-center">',
+        '  <div class="mx-auto w-32 h-32 rounded-full overflow-hidden ring-4 ring-brand-50 shadow-soft">',
+        '    <img src="' + doc.p + '" alt="' + doc.n + '" loading="lazy" width="128" height="128" class="w-full h-full object-cover transition duration-500 group-hover:scale-105" />',
         '  </div>',
-        '  <p class="mt-4 text-sm text-brand-800/65">' + doc.d + '</p>',
-        '  <a href="#contact" class="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-brand-600 hover:gap-3 transition-all">View Profile <span>&rarr;</span></a>',
+        '  <h4 class="font-display font-bold text-brand-900 leading-tight mt-4">' + doc.n + '</h4>',
+        '  <span class="text-sm font-semibold text-rose-500">' + doc.r + '</span>',
+        '  <p class="mt-3 text-sm text-brand-800/65">' + doc.d + '</p>',
+        '  <a href="#contact" class="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-brand-600 hover:gap-3 transition-all">Book Appointment <span>&rarr;</span></a>',
         '</article>'
       ].join('');
     }).join('');
@@ -164,8 +227,8 @@
   /* ---------- Unified scroll loop (rAF-throttled) ---------- */
   var header   = document.getElementById('header');
   var progress = document.getElementById('progress');
-  var sections = ['home', 'about', 'departments', 'diagnostics', 'doctors', 'contact'];
-  var navLinks = document.querySelectorAll('#nav a');
+  var sections = ['home', 'services', 'departments', 'diagnostics', 'packages', 'doctors', 'blog', 'contact'];
+  var navLinks = document.querySelectorAll('#nav a.nav-link');
   var lastY = window.scrollY, ticking = false;
 
   function syncNav(y) {
@@ -176,8 +239,7 @@
     });
     navLinks.forEach(function (link) {
       var on = link.getAttribute('href') === '#' + current;
-      link.classList.toggle('bg-white', on);
-      link.classList.toggle('text-brand-600', on);
+      link.classList.toggle('is-active', on);
     });
   }
 
@@ -223,7 +285,7 @@
   }
   window.addEventListener('scroll', onScroll, { passive: true });
   window.addEventListener('resize', function () {
-    if (window.innerWidth >= 1024 && mobileMenu && !mobileMenu.classList.contains('invisible')) closeMenu();
+    if (window.innerWidth >= 1280 && mobileMenu && !mobileMenu.classList.contains('invisible')) closeMenu();
     onScroll();
   });
   frame();

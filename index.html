@@ -57,7 +57,7 @@
 
   <style>
     html { scroll-behavior: smooth; }
-    [id] { scroll-margin-top: 96px; }
+    [id] { scroll-margin-top: 120px; }
     body { font-family: 'Plus Jakarta Sans', sans-serif; }
     .font-display { font-family: 'Sora', sans-serif; }
     ::selection { background: #7B2C8F; color: #fff; }
@@ -99,6 +99,15 @@
       transform: scaleX(0); transform-origin: right; transition: transform .35s cubic-bezier(.2,.7,.2,1); }
     .lnk:hover::after { transform: scaleX(1); transform-origin: left; }
 
+    /* active primary-nav link (works on white nav row) */
+    .nav-link.is-active { color: #AE3858; }
+    .nav-link.is-active::after { transform: scaleX(1); transform-origin: left; }
+
+    /* mega-menu category states */
+    .coe-cat:hover { background:#fff; color:#642375; }
+    .coe-cat.coe-active { background:#fff; color:#7B2C8F; box-shadow: inset 3px 0 0 #C84B6E; }
+    .coe-cat.coe-active svg, .coe-cat:hover svg { color:#C84B6E; }
+
     /* image hover-zoom inside cards */
     .zoom-wrap { overflow: hidden; }
     .zoom-wrap img { transition: transform .8s cubic-bezier(.2,.7,.2,1); }
@@ -131,10 +140,12 @@
   <!-- scroll progress -->
   <div id="progress" class="fixed top-0 left-0 right-0 h-1 z-[60] bg-gradient-to-r from-brand-600 to-rose-500 scale-x-0"></div>
 
-  <!-- ============ FLOATING PILL HEADER ============ -->
-  <header id="header" class="fixed top-3 inset-x-3 sm:inset-x-6 z-50">
-    <div class="max-w-7xl mx-auto rounded-2xl bg-white/85 backdrop-blur-xl ring-1 ring-brand-100 shadow-soft">
-      <div class="flex items-center justify-between gap-4 pl-4 pr-3 h-16">
+  <!-- ============ HCG-STYLE TWO-ROW HEADER ============ -->
+  <header id="header" class="fixed top-0 inset-x-0 z-50 bg-white/90 backdrop-blur-xl border-b border-brand-100 shadow-[0_10px_34px_-22px_rgba(85,25,105,0.45)]">
+    <!-- ROW 1 · utility bar -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+      <div class="flex items-center gap-3 sm:gap-4 h-16">
+        <!-- logo -->
         <a href="#home" class="flex items-center gap-2.5 shrink-0">
           <span class="w-9 h-11">
             <svg viewBox="0 0 64 80" class="w-full h-full">
@@ -152,22 +163,30 @@
           </span>
         </a>
 
-        <nav id="nav" class="hidden lg:flex items-center gap-0.5 bg-brand-50/70 rounded-xl p-1">
-          <a href="#home" class="px-3 py-1.5 text-sm font-medium text-brand-800 rounded-lg hover:bg-white transition">Home</a>
-          <a href="#about" class="px-3 py-1.5 text-sm font-medium text-brand-800 rounded-lg hover:bg-white transition">About</a>
-          <a href="#departments" class="px-3 py-1.5 text-sm font-medium text-brand-800 rounded-lg hover:bg-white transition">Centers</a>
-          <a href="#diagnostics" class="px-3 py-1.5 text-sm font-medium text-brand-800 rounded-lg hover:bg-white transition">Diagnostics</a>
-          <a href="#doctors" class="px-3 py-1.5 text-sm font-medium text-brand-800 rounded-lg hover:bg-white transition">Doctors</a>
-          <a href="#contact" class="px-3 py-1.5 text-sm font-medium text-brand-800 rounded-lg hover:bg-white transition">Contact</a>
-        </nav>
+        <!-- search -->
+        <form id="siteSearch" role="search" class="hidden lg:flex flex-1 max-w-md items-center gap-2 px-4 h-11 rounded-xl bg-brand-50/70 ring-1 ring-brand-100 focus-within:ring-brand-400 transition">
+          <svg class="w-4 h-4 fill-none stroke-brand-400 shrink-0" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+          <input id="searchInput" type="search" placeholder="Search doctors, services, tests…" aria-label="Search" class="flex-1 min-w-0 bg-transparent text-sm text-brand-800 placeholder:text-brand-400 outline-none" />
+        </form>
 
-        <div class="flex items-center gap-2">
-          <a href="tel:7032313999" class="hidden md:inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold text-brand-700 ring-1 ring-brand-200 hover:ring-brand-400 transition">
-            <svg class="w-4 h-4 fill-brand-600" viewBox="0 0 24 24"><path d="M4 4h4l2 5-2.5 1.5a12 12 0 006 6L15 14l5 2v4a2 2 0 01-2 2A16 16 0 012 6a2 2 0 012-2z"/></svg>
-            70 3231 3999
+        <!-- right cluster -->
+        <div class="flex items-center gap-2 sm:gap-3 ml-auto">
+          <!-- appointment phone -->
+          <a href="tel:7032313999" class="hidden xl:flex items-center gap-2.5">
+            <span class="w-9 h-9 grid place-items-center rounded-lg bg-brand-50 text-brand-600 shrink-0">
+              <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M4 4h4l2 5-2.5 1.5a12 12 0 006 6L15 14l5 2v4a2 2 0 01-2 2A16 16 0 012 6a2 2 0 012-2z"/></svg>
+            </span>
+            <span class="leading-tight">
+              <small class="block text-[11px] text-brand-500">Appointment</small>
+              <strong class="font-display text-sm text-brand-900">+91 70 3231 3999</strong>
+            </span>
           </a>
-          <a href="#contact" class="hidden sm:inline-flex items-center px-4 py-2.5 rounded-xl bg-gradient-to-r from-brand-600 to-rose-500 text-white text-sm font-semibold hover:-translate-y-0.5 transition">Book Appointment</a>
-          <button id="navToggle" class="lg:hidden w-11 h-11 grid place-items-center rounded-xl ring-1 ring-brand-200" aria-label="Open menu">
+
+          <!-- book appointment -->
+          <a href="#contact" class="hidden sm:inline-flex items-center px-4 h-11 rounded-xl bg-gradient-to-r from-brand-600 to-rose-500 text-white text-sm font-semibold hover:-translate-y-0.5 transition">Book Appointment</a>
+
+          <!-- mobile menu toggle -->
+          <button id="navToggle" class="xl:hidden w-11 h-11 grid place-items-center rounded-xl ring-1 ring-brand-200" aria-label="Open menu">
             <span class="block w-5 space-y-1.5">
               <span class="block h-0.5 bg-brand-700 rounded"></span>
               <span class="block h-0.5 bg-brand-700 rounded"></span>
@@ -177,10 +196,123 @@
         </div>
       </div>
     </div>
+
+    <!-- ROW 2 · primary nav (desktop) -->
+    <div class="hidden xl:block border-t border-brand-100/70 bg-white/60">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6">
+        <nav id="nav" class="flex items-center justify-center gap-1 h-12">
+          <!-- Centers of Excellence · mega-dropdown -->
+          <div id="coeWrap" class="group relative h-full flex items-center">
+            <a href="#departments" id="coeTrigger" class="nav-link lnk px-3 py-1.5 text-sm font-medium text-brand-800 transition inline-flex items-center gap-1.5" aria-haspopup="true">
+              Centers of Excellence
+              <svg class="w-3 h-3 fill-none stroke-current text-brand-400 transition duration-200 group-hover:rotate-180" stroke-width="2.6" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+            </a>
+            <div id="coePanel" class="absolute left-0 top-full pt-3 z-50 opacity-0 invisible translate-y-2 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 focus-within:opacity-100 focus-within:visible focus-within:translate-y-0 transition duration-200">
+              <div class="w-[720px] max-w-[92vw] max-h-[78vh] overflow-y-auto rounded-2xl bg-white ring-1 ring-brand-100 shadow-card grid grid-cols-[250px_1fr]">
+                <!-- left: categories -->
+                <div id="coeList" class="py-3 bg-brand-50/60 border-r border-brand-100">
+                  <button type="button" data-coe="0" class="coe-cat coe-active w-full flex items-center justify-between gap-3 px-4 py-2.5 text-sm font-medium text-brand-800 text-left transition">Medical Oncology <svg class="w-3.5 h-3.5 fill-none stroke-current text-brand-300" stroke-width="2.4" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></button>
+                  <button type="button" data-coe="1" class="coe-cat w-full flex items-center justify-between gap-3 px-4 py-2.5 text-sm font-medium text-brand-800 text-left transition">Surgical Oncology <svg class="w-3.5 h-3.5 fill-none stroke-current text-brand-300" stroke-width="2.4" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></button>
+                  <button type="button" data-coe="2" class="coe-cat w-full flex items-center justify-between gap-3 px-4 py-2.5 text-sm font-medium text-brand-800 text-left transition">Radiation Oncology <svg class="w-3.5 h-3.5 fill-none stroke-current text-brand-300" stroke-width="2.4" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></button>
+                  <button type="button" data-coe="3" class="coe-cat w-full flex items-center justify-between gap-3 px-4 py-2.5 text-sm font-medium text-brand-800 text-left transition">Hemato-Oncology &amp; BMT <svg class="w-3.5 h-3.5 fill-none stroke-current text-brand-300" stroke-width="2.4" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></button>
+                  <button type="button" data-coe="4" class="coe-cat w-full flex items-center justify-between gap-3 px-4 py-2.5 text-sm font-medium text-brand-800 text-left transition">Nuclear Medicine <svg class="w-3.5 h-3.5 fill-none stroke-current text-brand-300" stroke-width="2.4" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></button>
+                  <button type="button" data-coe="5" class="coe-cat w-full flex items-center justify-between gap-3 px-4 py-2.5 text-sm font-medium text-brand-800 text-left transition">Preventive Oncology <svg class="w-3.5 h-3.5 fill-none stroke-current text-brand-300" stroke-width="2.4" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></button>
+                  <button type="button" data-coe="6" class="coe-cat w-full flex items-center justify-between gap-3 px-4 py-2.5 text-sm font-medium text-brand-800 text-left transition">Diagnostics &amp; Imaging <svg class="w-3.5 h-3.5 fill-none stroke-current text-brand-300" stroke-width="2.4" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></button>
+                  <button type="button" data-coe="7" class="coe-cat w-full flex items-center justify-between gap-3 px-4 py-2.5 text-sm font-medium text-brand-800 text-left transition">Other Specialities <svg class="w-3.5 h-3.5 fill-none stroke-current text-brand-300" stroke-width="2.4" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></button>
+                </div>
+                <!-- right: sub-items -->
+                <div id="coeSub" class="p-6 flex flex-col">
+                  <div data-coe-panel="0">
+                    <h4 class="text-xs font-bold tracking-[0.16em] uppercase text-rose-500 mb-3">Medical Oncology</h4>
+                    <ul class="grid grid-cols-2 gap-x-4 gap-y-1">
+                      <li><a href="#services" class="coe-sub flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm text-brand-800/80 hover:bg-brand-50 hover:text-brand-700 transition"><span class="w-1.5 h-1.5 rounded-full bg-rose-400"></span>Chemotherapy</a></li>
+                      <li><a href="#services" class="coe-sub flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm text-brand-800/80 hover:bg-brand-50 hover:text-brand-700 transition"><span class="w-1.5 h-1.5 rounded-full bg-rose-400"></span>Immunotherapy</a></li>
+                      <li><a href="#services" class="coe-sub flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm text-brand-800/80 hover:bg-brand-50 hover:text-brand-700 transition"><span class="w-1.5 h-1.5 rounded-full bg-rose-400"></span>Targeted Therapy</a></li>
+                      <li><a href="#services" class="coe-sub flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm text-brand-800/80 hover:bg-brand-50 hover:text-brand-700 transition"><span class="w-1.5 h-1.5 rounded-full bg-rose-400"></span>Hormonal Therapy</a></li>
+                    </ul>
+                  </div>
+                  <div data-coe-panel="1" class="hidden">
+                    <h4 class="text-xs font-bold tracking-[0.16em] uppercase text-rose-500 mb-3">Surgical Oncology</h4>
+                    <ul class="grid grid-cols-2 gap-x-4 gap-y-1">
+                      <li><a href="#services" class="coe-sub flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm text-brand-800/80 hover:bg-brand-50 hover:text-brand-700 transition"><span class="w-1.5 h-1.5 rounded-full bg-rose-400"></span>Tumour Resection</a></li>
+                      <li><a href="#services" class="coe-sub flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm text-brand-800/80 hover:bg-brand-50 hover:text-brand-700 transition"><span class="w-1.5 h-1.5 rounded-full bg-rose-400"></span>Reconstructive Surgery</a></li>
+                      <li><a href="#services" class="coe-sub flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm text-brand-800/80 hover:bg-brand-50 hover:text-brand-700 transition"><span class="w-1.5 h-1.5 rounded-full bg-rose-400"></span>Minimally-Invasive Surgery</a></li>
+                      <li><a href="#services" class="coe-sub flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm text-brand-800/80 hover:bg-brand-50 hover:text-brand-700 transition"><span class="w-1.5 h-1.5 rounded-full bg-rose-400"></span>Day-Care Onco-Surgery</a></li>
+                    </ul>
+                  </div>
+                  <div data-coe-panel="2" class="hidden">
+                    <h4 class="text-xs font-bold tracking-[0.16em] uppercase text-rose-500 mb-3">Radiation Oncology</h4>
+                    <ul class="grid grid-cols-2 gap-x-4 gap-y-1">
+                      <li><a href="#services" class="coe-sub flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm text-brand-800/80 hover:bg-brand-50 hover:text-brand-700 transition"><span class="w-1.5 h-1.5 rounded-full bg-rose-400"></span>External Beam Therapy</a></li>
+                      <li><a href="#services" class="coe-sub flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm text-brand-800/80 hover:bg-brand-50 hover:text-brand-700 transition"><span class="w-1.5 h-1.5 rounded-full bg-rose-400"></span>Brachytherapy</a></li>
+                      <li><a href="#services" class="coe-sub flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm text-brand-800/80 hover:bg-brand-50 hover:text-brand-700 transition"><span class="w-1.5 h-1.5 rounded-full bg-rose-400"></span>IMRT / IGRT</a></li>
+                      <li><a href="#services" class="coe-sub flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm text-brand-800/80 hover:bg-brand-50 hover:text-brand-700 transition"><span class="w-1.5 h-1.5 rounded-full bg-rose-400"></span>Stereotactic Radiosurgery</a></li>
+                    </ul>
+                  </div>
+                  <div data-coe-panel="3" class="hidden">
+                    <h4 class="text-xs font-bold tracking-[0.16em] uppercase text-rose-500 mb-3">Hemato-Oncology &amp; BMT</h4>
+                    <ul class="grid grid-cols-2 gap-x-4 gap-y-1">
+                      <li><a href="#services" class="coe-sub flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm text-brand-800/80 hover:bg-brand-50 hover:text-brand-700 transition"><span class="w-1.5 h-1.5 rounded-full bg-rose-400"></span>Leukaemia Care</a></li>
+                      <li><a href="#services" class="coe-sub flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm text-brand-800/80 hover:bg-brand-50 hover:text-brand-700 transition"><span class="w-1.5 h-1.5 rounded-full bg-rose-400"></span>Lymphoma Care</a></li>
+                      <li><a href="#services" class="coe-sub flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm text-brand-800/80 hover:bg-brand-50 hover:text-brand-700 transition"><span class="w-1.5 h-1.5 rounded-full bg-rose-400"></span>Myeloma Care</a></li>
+                      <li><a href="#services" class="coe-sub flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm text-brand-800/80 hover:bg-brand-50 hover:text-brand-700 transition"><span class="w-1.5 h-1.5 rounded-full bg-rose-400"></span>Bone Marrow Transplant</a></li>
+                    </ul>
+                  </div>
+                  <div data-coe-panel="4" class="hidden">
+                    <h4 class="text-xs font-bold tracking-[0.16em] uppercase text-rose-500 mb-3">Nuclear Medicine</h4>
+                    <ul class="grid grid-cols-2 gap-x-4 gap-y-1">
+                      <li><a href="#services" class="coe-sub flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm text-brand-800/80 hover:bg-brand-50 hover:text-brand-700 transition"><span class="w-1.5 h-1.5 rounded-full bg-rose-400"></span>PET-CT Imaging</a></li>
+                      <li><a href="#services" class="coe-sub flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm text-brand-800/80 hover:bg-brand-50 hover:text-brand-700 transition"><span class="w-1.5 h-1.5 rounded-full bg-rose-400"></span>Radionuclide Therapy</a></li>
+                      <li><a href="#services" class="coe-sub flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm text-brand-800/80 hover:bg-brand-50 hover:text-brand-700 transition"><span class="w-1.5 h-1.5 rounded-full bg-rose-400"></span>Thyroid Scintigraphy</a></li>
+                      <li><a href="#services" class="coe-sub flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm text-brand-800/80 hover:bg-brand-50 hover:text-brand-700 transition"><span class="w-1.5 h-1.5 rounded-full bg-rose-400"></span>Bone Scans</a></li>
+                    </ul>
+                  </div>
+                  <div data-coe-panel="5" class="hidden">
+                    <h4 class="text-xs font-bold tracking-[0.16em] uppercase text-rose-500 mb-3">Preventive Oncology</h4>
+                    <ul class="grid grid-cols-2 gap-x-4 gap-y-1">
+                      <li><a href="#services" class="coe-sub flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm text-brand-800/80 hover:bg-brand-50 hover:text-brand-700 transition"><span class="w-1.5 h-1.5 rounded-full bg-rose-400"></span>Cancer Screening</a></li>
+                      <li><a href="#services" class="coe-sub flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm text-brand-800/80 hover:bg-brand-50 hover:text-brand-700 transition"><span class="w-1.5 h-1.5 rounded-full bg-rose-400"></span>Genetic Risk Assessment</a></li>
+                      <li><a href="#services" class="coe-sub flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm text-brand-800/80 hover:bg-brand-50 hover:text-brand-700 transition"><span class="w-1.5 h-1.5 rounded-full bg-rose-400"></span>Health Counselling</a></li>
+                      <li><a href="#services" class="coe-sub flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm text-brand-800/80 hover:bg-brand-50 hover:text-brand-700 transition"><span class="w-1.5 h-1.5 rounded-full bg-rose-400"></span>Vaccination</a></li>
+                    </ul>
+                  </div>
+                  <div data-coe-panel="6" class="hidden">
+                    <h4 class="text-xs font-bold tracking-[0.16em] uppercase text-rose-500 mb-3">Diagnostics &amp; Imaging</h4>
+                    <ul class="grid grid-cols-2 gap-x-4 gap-y-1">
+                      <li><a href="#diagnostics" class="coe-sub flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm text-brand-800/80 hover:bg-brand-50 hover:text-brand-700 transition"><span class="w-1.5 h-1.5 rounded-full bg-rose-400"></span>MRI</a></li>
+                      <li><a href="#diagnostics" class="coe-sub flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm text-brand-800/80 hover:bg-brand-50 hover:text-brand-700 transition"><span class="w-1.5 h-1.5 rounded-full bg-rose-400"></span>CT Scan</a></li>
+                      <li><a href="#diagnostics" class="coe-sub flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm text-brand-800/80 hover:bg-brand-50 hover:text-brand-700 transition"><span class="w-1.5 h-1.5 rounded-full bg-rose-400"></span>Ultrasound</a></li>
+                      <li><a href="#diagnostics" class="coe-sub flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm text-brand-800/80 hover:bg-brand-50 hover:text-brand-700 transition"><span class="w-1.5 h-1.5 rounded-full bg-rose-400"></span>Digital X-Ray</a></li>
+                      <li><a href="#diagnostics" class="coe-sub flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm text-brand-800/80 hover:bg-brand-50 hover:text-brand-700 transition"><span class="w-1.5 h-1.5 rounded-full bg-rose-400"></span>Mammography</a></li>
+                    </ul>
+                  </div>
+                  <div data-coe-panel="7" class="hidden">
+                    <h4 class="text-xs font-bold tracking-[0.16em] uppercase text-rose-500 mb-3">Other Specialities</h4>
+                    <ul class="grid grid-cols-2 gap-x-4 gap-y-1">
+                      <li><a href="#departments" class="coe-sub flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm text-brand-800/80 hover:bg-brand-50 hover:text-brand-700 transition"><span class="w-1.5 h-1.5 rounded-full bg-rose-400"></span>Endocrinology</a></li>
+                      <li><a href="#departments" class="coe-sub flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm text-brand-800/80 hover:bg-brand-50 hover:text-brand-700 transition"><span class="w-1.5 h-1.5 rounded-full bg-rose-400"></span>General Medicine</a></li>
+                      <li><a href="#departments" class="coe-sub flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm text-brand-800/80 hover:bg-brand-50 hover:text-brand-700 transition"><span class="w-1.5 h-1.5 rounded-full bg-rose-400"></span>Gastroenterology</a></li>
+                      <li><a href="#departments" class="coe-sub flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm text-brand-800/80 hover:bg-brand-50 hover:text-brand-700 transition"><span class="w-1.5 h-1.5 rounded-full bg-rose-400"></span>Dermatology</a></li>
+                    </ul>
+                  </div>
+                  <a href="#departments" class="coe-sub mt-auto pt-4 inline-flex w-fit items-center gap-1.5 text-sm font-semibold text-rose-500 hover:gap-3 transition-all">View all centers <span>&rarr;</span></a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <a href="#services" class="nav-link lnk px-3 py-1.5 text-sm font-medium text-brand-800 transition">Oncology Services</a>
+          <a href="#doctors" class="nav-link lnk px-3 py-1.5 text-sm font-medium text-brand-800 transition">Find Your Doctor</a>
+          <a href="#diagnostics" class="nav-link lnk px-3 py-1.5 text-sm font-medium text-brand-800 transition">Diagnostics</a>
+          <a href="#packages" class="nav-link lnk px-3 py-1.5 text-sm font-medium text-brand-800 transition">Health Checkup Packages</a>
+          <a href="#blog" class="nav-link lnk px-3 py-1.5 text-sm font-medium text-brand-800 transition">Health Library</a>
+          <a href="#contact" class="nav-link lnk px-3 py-1.5 text-sm font-medium text-brand-800 transition">Contact</a>
+        </nav>
+      </div>
+    </div>
   </header>
 
   <!-- ============ OFF-CANVAS MOBILE MENU ============ -->
-  <div id="mobileMenu" class="fixed inset-0 z-[70] lg:hidden invisible" aria-hidden="true">
+  <div id="mobileMenu" class="fixed inset-0 z-[70] xl:hidden invisible" aria-hidden="true">
     <div id="menuBackdrop" class="absolute inset-0 bg-brand-950/60 backdrop-blur-sm opacity-0 transition-opacity duration-300"></div>
     <aside id="menuPanel" class="absolute top-0 right-0 h-full w-[86%] max-w-sm bg-white shadow-card flex flex-col translate-x-full transition-transform duration-300 ease-out">
       <div class="flex items-center justify-between gap-4 px-5 h-[4.75rem] border-b border-brand-100 shrink-0">
@@ -199,11 +331,34 @@
         </button>
       </div>
       <nav class="flex-1 overflow-y-auto px-5 py-6 flex flex-col gap-1.5">
+        <form id="siteSearchMobile" role="search" class="flex items-center gap-2 px-4 h-12 mb-3 rounded-xl bg-brand-50 ring-1 ring-brand-100 focus-within:ring-brand-400 transition">
+          <svg class="w-4 h-4 fill-none stroke-brand-400 shrink-0" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+          <input type="search" placeholder="Search doctors, services, tests…" aria-label="Search" class="flex-1 min-w-0 bg-transparent text-sm text-brand-800 placeholder:text-brand-400 outline-none" />
+        </form>
         <a href="#home" class="flex items-center justify-between px-4 py-3.5 rounded-xl text-base font-semibold text-brand-800 hover:bg-brand-50 transition">Home <span class="text-brand-300">&rarr;</span></a>
         <a href="#about" class="flex items-center justify-between px-4 py-3.5 rounded-xl text-base font-semibold text-brand-800 hover:bg-brand-50 transition">About <span class="text-brand-300">&rarr;</span></a>
-        <a href="#departments" class="flex items-center justify-between px-4 py-3.5 rounded-xl text-base font-semibold text-brand-800 hover:bg-brand-50 transition">Centers of Excellence <span class="text-brand-300">&rarr;</span></a>
+        <a href="#services" class="flex items-center justify-between px-4 py-3.5 rounded-xl text-base font-semibold text-brand-800 hover:bg-brand-50 transition">Oncology Services <span class="text-brand-300">&rarr;</span></a>
+        <div>
+          <button type="button" id="coeAccBtn" aria-expanded="false" class="w-full flex items-center justify-between px-4 py-3.5 rounded-xl text-base font-semibold text-brand-800 hover:bg-brand-50 transition">
+            Centers of Excellence
+            <svg id="coeAccChev" class="w-4 h-4 fill-none stroke-current text-brand-300 transition-transform duration-200" stroke-width="2.4" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div id="coeAccPanel" class="hidden mt-1 ml-2 pl-3 border-l-2 border-brand-100 flex flex-col gap-0.5">
+            <a href="#services" class="px-4 py-2.5 rounded-lg text-sm font-medium text-brand-800/80 hover:bg-brand-50 hover:text-brand-700 transition">Medical Oncology</a>
+            <a href="#services" class="px-4 py-2.5 rounded-lg text-sm font-medium text-brand-800/80 hover:bg-brand-50 hover:text-brand-700 transition">Surgical Oncology</a>
+            <a href="#services" class="px-4 py-2.5 rounded-lg text-sm font-medium text-brand-800/80 hover:bg-brand-50 hover:text-brand-700 transition">Radiation Oncology</a>
+            <a href="#services" class="px-4 py-2.5 rounded-lg text-sm font-medium text-brand-800/80 hover:bg-brand-50 hover:text-brand-700 transition">Hemato-Oncology &amp; BMT</a>
+            <a href="#services" class="px-4 py-2.5 rounded-lg text-sm font-medium text-brand-800/80 hover:bg-brand-50 hover:text-brand-700 transition">Nuclear Medicine</a>
+            <a href="#services" class="px-4 py-2.5 rounded-lg text-sm font-medium text-brand-800/80 hover:bg-brand-50 hover:text-brand-700 transition">Preventive Oncology</a>
+            <a href="#diagnostics" class="px-4 py-2.5 rounded-lg text-sm font-medium text-brand-800/80 hover:bg-brand-50 hover:text-brand-700 transition">Diagnostics &amp; Imaging</a>
+            <a href="#departments" class="px-4 py-2.5 rounded-lg text-sm font-medium text-brand-800/80 hover:bg-brand-50 hover:text-brand-700 transition">Other Specialities</a>
+          </div>
+        </div>
+        <a href="#technology" class="flex items-center justify-between px-4 py-3.5 rounded-xl text-base font-semibold text-brand-800 hover:bg-brand-50 transition">Advanced Technology <span class="text-brand-300">&rarr;</span></a>
         <a href="#diagnostics" class="flex items-center justify-between px-4 py-3.5 rounded-xl text-base font-semibold text-brand-800 hover:bg-brand-50 transition">Diagnostics <span class="text-brand-300">&rarr;</span></a>
+        <a href="#packages" class="flex items-center justify-between px-4 py-3.5 rounded-xl text-base font-semibold text-brand-800 hover:bg-brand-50 transition">Health Packages <span class="text-brand-300">&rarr;</span></a>
         <a href="#doctors" class="flex items-center justify-between px-4 py-3.5 rounded-xl text-base font-semibold text-brand-800 hover:bg-brand-50 transition">Our Doctors <span class="text-brand-300">&rarr;</span></a>
+        <a href="#blog" class="flex items-center justify-between px-4 py-3.5 rounded-xl text-base font-semibold text-brand-800 hover:bg-brand-50 transition">Health Library <span class="text-brand-300">&rarr;</span></a>
         <a href="#contact" class="flex items-center justify-between px-4 py-3.5 rounded-xl text-base font-semibold text-brand-800 hover:bg-brand-50 transition">Contact <span class="text-brand-300">&rarr;</span></a>
       </nav>
       <div class="px-5 py-5 border-t border-brand-100 space-y-3 shrink-0">
@@ -326,7 +481,11 @@
       <div class="grid md:grid-cols-3 gap-6">
         <!-- card 1 -->
         <article class="reveal group relative p-8 rounded-3xl bg-white ring-1 ring-brand-100 shadow-soft hover:shadow-card hover:-translate-y-2 transition overflow-hidden">
-          <span class="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-brand-500 to-rose-500 scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-500"></span>
+          <span class="absolute top-0 inset-x-0 h-1 z-10 bg-gradient-to-r from-brand-500 to-rose-500 scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-500"></span>
+          <div class="relative -mx-8 -mt-8 mb-7 h-40 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1532938911079-1b06ac7ceec7?auto=format&fit=crop&w=600&q=70" alt="Expert doctors at AIROC" loading="lazy" class="w-full h-full object-cover transition duration-700 group-hover:scale-105" />
+            <span class="absolute inset-0 bg-gradient-to-t from-brand-950/55 to-transparent"></span>
+          </div>
           <div class="flex items-start justify-between">
             <span class="w-14 h-14 grid place-items-center rounded-2xl bg-brand-100 text-brand-600 group-hover:bg-brand-600 group-hover:text-white transition">
               <svg class="w-7 h-7 fill-none stroke-current" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20a8 8 0 0116 0"/></svg>
@@ -344,6 +503,10 @@
         <!-- card 2 · featured -->
         <article class="reveal group relative p-8 rounded-3xl bg-gradient-to-br from-brand-600 to-brand-800 text-white shadow-card hover:-translate-y-2 transition overflow-hidden md:-mt-4">
           <span class="absolute inset-0 bg-grid-light" aria-hidden="true"></span>
+          <div class="relative -mx-8 -mt-8 mb-7 h-40 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1581594549595-35f6edc7b762?auto=format&fit=crop&w=600&q=70" alt="Advanced diagnostics imaging" loading="lazy" class="w-full h-full object-cover transition duration-700 group-hover:scale-105" />
+            <span class="absolute inset-0 bg-gradient-to-t from-brand-900/70 to-transparent"></span>
+          </div>
           <div class="relative flex items-start justify-between">
             <span class="w-14 h-14 grid place-items-center rounded-2xl bg-white/15 text-white">
               <svg class="w-7 h-7 fill-none stroke-current" stroke-width="2" viewBox="0 0 24 24"><path d="M6 3v6a6 6 0 0012 0V3M9 21a3 3 0 016 0M12 15v6"/><circle cx="18" cy="6" r="2"/></svg>
@@ -360,7 +523,11 @@
 
         <!-- card 3 -->
         <article class="reveal group relative p-8 rounded-3xl bg-white ring-1 ring-brand-100 shadow-soft hover:shadow-card hover:-translate-y-2 transition overflow-hidden">
-          <span class="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-rose-500 to-brand-500 scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-500"></span>
+          <span class="absolute top-0 inset-x-0 h-1 z-10 bg-gradient-to-r from-rose-500 to-brand-500 scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-500"></span>
+          <div class="relative -mx-8 -mt-8 mb-7 h-40 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1583324113626-70df0f4deaab?auto=format&fit=crop&w=600&q=70" alt="Home sample collection" loading="lazy" class="w-full h-full object-cover transition duration-700 group-hover:scale-105" />
+            <span class="absolute inset-0 bg-gradient-to-t from-brand-950/55 to-transparent"></span>
+          </div>
           <div class="flex items-start justify-between">
             <span class="w-14 h-14 grid place-items-center rounded-2xl bg-rose-100 text-rose-500 group-hover:bg-rose-500 group-hover:text-white transition">
               <svg class="w-7 h-7 fill-none stroke-current" stroke-width="2" viewBox="0 0 24 24"><path d="M3 11l9-8 9 8M5 10v10h14V10M9 20v-6h6v6"/></svg>
@@ -548,15 +715,126 @@
     </div>
   </section>
 
+  <!-- ============ ONCOLOGY SERVICES · IMAGE CARDS ============ -->
+  <section id="services" class="relative py-20 bg-white overflow-hidden">
+    <span class="absolute inset-0 bg-grid" aria-hidden="true"></span>
+    <span class="blob bg-rose-200/40 w-80 h-80 -top-10 -left-24"></span>
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6">
+      <!-- header -->
+      <div class="reveal flex flex-col sm:flex-row items-start sm:items-end gap-2 sm:gap-5 mb-6">
+        <span class="numoutline font-display text-[3.5rem] sm:text-8xl font-extrabold leading-[0.8] select-none">02</span>
+        <div class="pb-1">
+          <span class="text-xs font-bold tracking-[0.2em] uppercase text-rose-500">Comprehensive Cancer Care</span>
+          <h2 class="font-display text-3xl sm:text-5xl font-extrabold text-brand-900 leading-tight">Oncology <span class="grad-purple">Services</span></h2>
+        </div>
+      </div>
+      <p class="reveal max-w-2xl text-brand-800/65 mb-12">
+        From diagnosis to recovery — our multidisciplinary oncology team delivers precise,
+        evidence-based treatment across every cancer speciality, under one roof.
+      </p>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Medical Oncology -->
+        <article class="reveal group rounded-3xl overflow-hidden bg-white ring-1 ring-brand-100 shadow-soft hover:shadow-card hover:-translate-y-1.5 transition flex flex-col">
+          <div class="zoom-wrap relative h-48">
+            <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=600&q=70" alt="Medical Oncology" loading="lazy" class="w-full h-full object-cover" />
+            <span class="absolute inset-0 bg-gradient-to-t from-brand-950/60 to-transparent"></span>
+            <span class="absolute top-4 left-4 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/95 text-emerald-600 text-[11px] font-bold"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>Available</span>
+          </div>
+          <div class="p-6 flex flex-col flex-1">
+            <h3 class="font-display text-lg font-bold text-brand-900">Medical Oncology</h3>
+            <p class="mt-2 text-sm text-brand-800/65 flex-1">Chemotherapy, immunotherapy and targeted drug therapy delivered through personalised, protocol-driven treatment plans.</p>
+            <a href="#contact" class="mt-4 inline-flex w-fit items-center gap-1.5 text-sm font-semibold text-rose-500 group-hover:gap-3 transition-all">Know More <span>&rarr;</span></a>
+          </div>
+        </article>
+
+        <!-- Radiation Oncology -->
+        <article class="reveal group rounded-3xl overflow-hidden bg-white ring-1 ring-brand-100 shadow-soft hover:shadow-card hover:-translate-y-1.5 transition flex flex-col">
+          <div class="zoom-wrap relative h-48">
+            <img src="https://images.unsplash.com/photo-1530026405186-ed1f139313f8?auto=format&fit=crop&w=600&q=70" alt="Radiation Oncology" loading="lazy" class="w-full h-full object-cover" />
+            <span class="absolute inset-0 bg-gradient-to-t from-brand-950/60 to-transparent"></span>
+            <span class="absolute top-4 left-4 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/95 text-emerald-600 text-[11px] font-bold"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>Available</span>
+          </div>
+          <div class="p-6 flex flex-col flex-1">
+            <h3 class="font-display text-lg font-bold text-brand-900">Radiation Oncology</h3>
+            <p class="mt-2 text-sm text-brand-800/65 flex-1">Precision radiation therapy with advanced planning systems that target tumours while sparing surrounding healthy tissue.</p>
+            <a href="#contact" class="mt-4 inline-flex w-fit items-center gap-1.5 text-sm font-semibold text-rose-500 group-hover:gap-3 transition-all">Know More <span>&rarr;</span></a>
+          </div>
+        </article>
+
+        <!-- Hemato-Oncology -->
+        <article class="reveal group rounded-3xl overflow-hidden bg-white ring-1 ring-brand-100 shadow-soft hover:shadow-card hover:-translate-y-1.5 transition flex flex-col">
+          <div class="zoom-wrap relative h-48">
+            <img src="https://images.unsplash.com/photo-1579154204601-01588f351e67?auto=format&fit=crop&w=600&q=70" alt="Hemato-Oncology" loading="lazy" class="w-full h-full object-cover" />
+            <span class="absolute inset-0 bg-gradient-to-t from-brand-950/60 to-transparent"></span>
+            <span class="absolute top-4 left-4 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/95 text-emerald-600 text-[11px] font-bold"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>Available</span>
+          </div>
+          <div class="p-6 flex flex-col flex-1">
+            <h3 class="font-display text-lg font-bold text-brand-900">Hemato-Oncology</h3>
+            <p class="mt-2 text-sm text-brand-800/65 flex-1">Specialised diagnosis and treatment of blood cancers including leukaemia, lymphoma and myeloma.</p>
+            <a href="#contact" class="mt-4 inline-flex w-fit items-center gap-1.5 text-sm font-semibold text-rose-500 group-hover:gap-3 transition-all">Know More <span>&rarr;</span></a>
+          </div>
+        </article>
+
+        <!-- Surgical Oncology -->
+        <article class="reveal group rounded-3xl overflow-hidden bg-white ring-1 ring-brand-100 shadow-soft hover:shadow-card hover:-translate-y-1.5 transition flex flex-col">
+          <div class="zoom-wrap relative h-48">
+            <img src="https://images.unsplash.com/photo-1551076805-e1869033e561?auto=format&fit=crop&w=600&q=70" alt="Surgical Oncology" loading="lazy" class="w-full h-full object-cover" />
+            <span class="absolute inset-0 bg-gradient-to-t from-brand-950/60 to-transparent"></span>
+            <span class="absolute top-4 left-4 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/95 text-amber-600 text-[11px] font-bold"><span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>Coming Soon</span>
+          </div>
+          <div class="p-6 flex flex-col flex-1">
+            <h3 class="font-display text-lg font-bold text-brand-900">Surgical Oncology</h3>
+            <p class="mt-2 text-sm text-brand-800/65 flex-1">Surgical removal of tumours using modern, minimally-invasive techniques with dedicated post-operative care.</p>
+            <a href="#contact" class="mt-4 inline-flex w-fit items-center gap-1.5 text-sm font-semibold text-rose-500 group-hover:gap-3 transition-all">Know More <span>&rarr;</span></a>
+          </div>
+        </article>
+
+        <!-- Nuclear Medicine -->
+        <article class="reveal group rounded-3xl overflow-hidden bg-white ring-1 ring-brand-100 shadow-soft hover:shadow-card hover:-translate-y-1.5 transition flex flex-col">
+          <div class="zoom-wrap relative h-48">
+            <img src="https://images.unsplash.com/photo-1631217868264-e5b90bb7e133?auto=format&fit=crop&w=600&q=70" alt="Nuclear Medicine" loading="lazy" class="w-full h-full object-cover" />
+            <span class="absolute inset-0 bg-gradient-to-t from-brand-950/60 to-transparent"></span>
+            <span class="absolute top-4 left-4 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/95 text-emerald-600 text-[11px] font-bold"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>Available</span>
+          </div>
+          <div class="p-6 flex flex-col flex-1">
+            <h3 class="font-display text-lg font-bold text-brand-900">Nuclear Medicine</h3>
+            <p class="mt-2 text-sm text-brand-800/65 flex-1">Targeted radionuclide therapy and PET-CT imaging for accurate staging and treatment of cancer.</p>
+            <a href="#contact" class="mt-4 inline-flex w-fit items-center gap-1.5 text-sm font-semibold text-rose-500 group-hover:gap-3 transition-all">Know More <span>&rarr;</span></a>
+          </div>
+        </article>
+
+        <!-- Preventive Oncology -->
+        <article class="reveal group rounded-3xl overflow-hidden bg-white ring-1 ring-brand-100 shadow-soft hover:shadow-card hover:-translate-y-1.5 transition flex flex-col">
+          <div class="zoom-wrap relative h-48">
+            <img src="https://images.unsplash.com/photo-1551601651-2a8555f1a136?auto=format&fit=crop&w=600&q=70" alt="Preventive Oncology" loading="lazy" class="w-full h-full object-cover" />
+            <span class="absolute inset-0 bg-gradient-to-t from-brand-950/60 to-transparent"></span>
+            <span class="absolute top-4 left-4 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/95 text-emerald-600 text-[11px] font-bold"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>Available</span>
+          </div>
+          <div class="p-6 flex flex-col flex-1">
+            <h3 class="font-display text-lg font-bold text-brand-900">Preventive Oncology</h3>
+            <p class="mt-2 text-sm text-brand-800/65 flex-1">Cancer screening, genetic risk assessment and early-detection programs that catch disease at its most treatable stage.</p>
+            <a href="#contact" class="mt-4 inline-flex w-fit items-center gap-1.5 text-sm font-semibold text-rose-500 group-hover:gap-3 transition-all">Know More <span>&rarr;</span></a>
+          </div>
+        </article>
+      </div>
+
+      <div class="reveal mt-10 flex flex-col sm:flex-row gap-3">
+        <a href="#departments" class="inline-flex justify-center items-center gap-2 px-6 py-3.5 rounded-xl ring-1 ring-brand-200 text-brand-700 font-semibold hover:ring-brand-400 transition">View All Centers <span>&rarr;</span></a>
+        <a href="#contact" class="inline-flex justify-center items-center gap-2 px-6 py-3.5 rounded-xl bg-gradient-to-r from-brand-600 to-rose-500 text-white font-semibold shadow-soft hover:-translate-y-0.5 transition">Book an Appointment</a>
+      </div>
+    </div>
+  </section>
+
   <!-- ============ DEPARTMENTS · STICKY SCROLL ============ -->
-  <section id="departments" class="relative py-20 bg-white overflow-hidden">
+  <section id="departments" class="relative py-20 bg-brand-50/60 overflow-hidden">
     <span class="absolute inset-0 bg-grid" aria-hidden="true"></span>
     <div class="relative max-w-7xl mx-auto px-4 sm:px-6 grid lg:grid-cols-[380px_1fr] gap-10">
 
       <!-- sticky left panel -->
       <div class="lg:sticky lg:top-28 lg:self-start">
         <div class="reveal flex flex-col sm:flex-row items-start sm:items-end gap-2 sm:gap-5 mb-6">
-          <span class="numoutline font-display text-[3.5rem] sm:text-8xl font-extrabold leading-[0.8] select-none">02</span>
+          <span class="numoutline font-display text-[3.5rem] sm:text-8xl font-extrabold leading-[0.8] select-none">03</span>
           <span class="text-xs font-bold tracking-[0.2em] uppercase text-rose-500 pb-2">Centers of Excellence</span>
         </div>
         <h2 class="reveal font-display text-3xl sm:text-4xl font-extrabold text-brand-900 leading-tight">
@@ -606,7 +884,11 @@
 
         <!-- dept card: Radiology -->
         <a href="#contact" class="reveal group relative block p-6 rounded-2xl bg-white ring-1 ring-brand-100 hover:shadow-card hover:-translate-y-1.5 transition overflow-hidden">
-          <span class="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-brand-500 to-rose-500 scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-500"></span>
+          <span class="absolute top-0 inset-x-0 h-1 z-10 bg-gradient-to-r from-brand-500 to-rose-500 scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-500"></span>
+          <div class="relative -mx-6 -mt-6 mb-5 h-36 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1530026405186-ed1f139313f8?auto=format&fit=crop&w=600&q=70" alt="Radiology" loading="lazy" class="w-full h-full object-cover transition duration-700 group-hover:scale-105" />
+            <span class="absolute inset-0 bg-gradient-to-t from-brand-950/45 to-transparent"></span>
+          </div>
           <div class="flex items-start justify-between">
             <span class="w-12 h-12 grid place-items-center rounded-xl bg-brand-100 text-brand-600 group-hover:bg-brand-600 group-hover:text-white transition">
               <svg class="w-6 h-6 fill-none stroke-current" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v10M7 12h10"/></svg>
@@ -621,7 +903,11 @@
         </a>
 
         <a href="#contact" class="reveal group relative block p-6 rounded-2xl bg-white ring-1 ring-brand-100 hover:shadow-card hover:-translate-y-1.5 transition overflow-hidden">
-          <span class="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-brand-500 to-rose-500 scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-500"></span>
+          <span class="absolute top-0 inset-x-0 h-1 z-10 bg-gradient-to-r from-brand-500 to-rose-500 scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-500"></span>
+          <div class="relative -mx-6 -mt-6 mb-5 h-36 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1631217868264-e5b90bb7e133?auto=format&fit=crop&w=600&q=70" alt="Nuclear Medicine" loading="lazy" class="w-full h-full object-cover transition duration-700 group-hover:scale-105" />
+            <span class="absolute inset-0 bg-gradient-to-t from-brand-950/45 to-transparent"></span>
+          </div>
           <div class="flex items-start justify-between">
             <span class="w-12 h-12 grid place-items-center rounded-xl bg-brand-100 text-brand-600 group-hover:bg-brand-600 group-hover:text-white transition">
               <svg class="w-6 h-6 fill-none stroke-current" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M19 5l-2 2M7 17l-2 2"/></svg>
@@ -636,7 +922,11 @@
         </a>
 
         <a href="#contact" class="reveal group relative block p-6 rounded-2xl bg-white ring-1 ring-brand-100 hover:shadow-card hover:-translate-y-1.5 transition overflow-hidden">
-          <span class="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-brand-500 to-rose-500 scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-500"></span>
+          <span class="absolute top-0 inset-x-0 h-1 z-10 bg-gradient-to-r from-brand-500 to-rose-500 scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-500"></span>
+          <div class="relative -mx-6 -mt-6 mb-5 h-36 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1551076805-e1869033e561?auto=format&fit=crop&w=600&q=70" alt="Surgery" loading="lazy" class="w-full h-full object-cover transition duration-700 group-hover:scale-105" />
+            <span class="absolute inset-0 bg-gradient-to-t from-brand-950/45 to-transparent"></span>
+          </div>
           <div class="flex items-start justify-between">
             <span class="w-12 h-12 grid place-items-center rounded-xl bg-brand-100 text-brand-600 group-hover:bg-brand-600 group-hover:text-white transition">
               <svg class="w-6 h-6 fill-none stroke-current" stroke-width="2" viewBox="0 0 24 24"><path d="M8 3v6M5 6h6M14 4l6 6-9 9-6-6z"/></svg>
@@ -651,7 +941,11 @@
         </a>
 
         <a href="#contact" class="reveal group relative block p-6 rounded-2xl bg-white ring-1 ring-brand-100 hover:shadow-card hover:-translate-y-1.5 transition overflow-hidden">
-          <span class="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-brand-500 to-rose-500 scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-500"></span>
+          <span class="absolute top-0 inset-x-0 h-1 z-10 bg-gradient-to-r from-brand-500 to-rose-500 scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-500"></span>
+          <div class="relative -mx-6 -mt-6 mb-5 h-36 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=600&q=70" alt="Endocrinology" loading="lazy" class="w-full h-full object-cover transition duration-700 group-hover:scale-105" />
+            <span class="absolute inset-0 bg-gradient-to-t from-brand-950/45 to-transparent"></span>
+          </div>
           <div class="flex items-start justify-between">
             <span class="w-12 h-12 grid place-items-center rounded-xl bg-brand-100 text-brand-600 group-hover:bg-brand-600 group-hover:text-white transition">
               <svg class="w-6 h-6 fill-none stroke-current" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2a4 4 0 014 4c0 3-4 5-4 9M12 22v-3M8 9a4 4 0 010-6"/></svg>
@@ -666,7 +960,11 @@
         </a>
 
         <a href="#contact" class="reveal group relative block p-6 rounded-2xl bg-white ring-1 ring-brand-100 hover:shadow-card hover:-translate-y-1.5 transition overflow-hidden">
-          <span class="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-brand-500 to-rose-500 scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-500"></span>
+          <span class="absolute top-0 inset-x-0 h-1 z-10 bg-gradient-to-r from-brand-500 to-rose-500 scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-500"></span>
+          <div class="relative -mx-6 -mt-6 mb-5 h-36 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?auto=format&fit=crop&w=600&q=70" alt="General Medicine" loading="lazy" class="w-full h-full object-cover transition duration-700 group-hover:scale-105" />
+            <span class="absolute inset-0 bg-gradient-to-t from-brand-950/45 to-transparent"></span>
+          </div>
           <div class="flex items-start justify-between">
             <span class="w-12 h-12 grid place-items-center rounded-xl bg-brand-100 text-brand-600 group-hover:bg-brand-600 group-hover:text-white transition">
               <svg class="w-6 h-6 fill-none stroke-current" stroke-width="2" viewBox="0 0 24 24"><path d="M19 14c1.5-1.5 3-3.5 3-6a4 4 0 00-7-2.7A4 4 0 008 8c0 2.5 1.5 4.5 3 6l4 4z"/><path d="M2 14h5l2-3 2 5 2-3h7"/></svg>
@@ -681,7 +979,11 @@
         </a>
 
         <a href="#contact" class="reveal group relative block p-6 rounded-2xl bg-white ring-1 ring-brand-100 hover:shadow-card hover:-translate-y-1.5 transition overflow-hidden">
-          <span class="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-brand-500 to-rose-500 scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-500"></span>
+          <span class="absolute top-0 inset-x-0 h-1 z-10 bg-gradient-to-r from-brand-500 to-rose-500 scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-500"></span>
+          <div class="relative -mx-6 -mt-6 mb-5 h-36 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1584982751601-97dcc096659c?auto=format&fit=crop&w=600&q=70" alt="Gastroenterology" loading="lazy" class="w-full h-full object-cover transition duration-700 group-hover:scale-105" />
+            <span class="absolute inset-0 bg-gradient-to-t from-brand-950/45 to-transparent"></span>
+          </div>
           <div class="flex items-start justify-between">
             <span class="w-12 h-12 grid place-items-center rounded-xl bg-brand-100 text-brand-600 group-hover:bg-brand-600 group-hover:text-white transition">
               <svg class="w-6 h-6 fill-none stroke-current" stroke-width="2" viewBox="0 0 24 24"><path d="M12 3c4 0 7 2 7 6 0 5-4 6-4 9a3 3 0 01-6 0c0-2-4-4-4-8 0-4 3-7 7-7z"/></svg>
@@ -696,7 +998,11 @@
         </a>
 
         <a href="#contact" class="reveal group relative block p-6 rounded-2xl bg-white ring-1 ring-brand-100 hover:shadow-card hover:-translate-y-1.5 transition overflow-hidden sm:col-span-2">
-          <span class="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-brand-500 to-rose-500 scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-500"></span>
+          <span class="absolute top-0 inset-x-0 h-1 z-10 bg-gradient-to-r from-brand-500 to-rose-500 scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-500"></span>
+          <div class="relative -mx-6 -mt-6 mb-5 h-44 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1576765608535-5f04d1e3f289?auto=format&fit=crop&w=900&q=70" alt="Anesthesia" loading="lazy" class="w-full h-full object-cover transition duration-700 group-hover:scale-105" />
+            <span class="absolute inset-0 bg-gradient-to-t from-brand-950/45 to-transparent"></span>
+          </div>
           <div class="flex items-start justify-between">
             <span class="w-12 h-12 grid place-items-center rounded-xl bg-brand-100 text-brand-600 group-hover:bg-brand-600 group-hover:text-white transition">
               <svg class="w-6 h-6 fill-none stroke-current" stroke-width="2" viewBox="0 0 24 24"><path d="M4 12a8 8 0 0116 0M8 12a4 4 0 018 0M12 12v8M9 20h6"/></svg>
@@ -713,6 +1019,94 @@
     </div>
   </section>
 
+  <!-- ============ ADVANCED TECHNOLOGY · EQUIPMENT GRID ============ -->
+  <section id="technology" class="relative py-16 sm:py-24 bg-white overflow-hidden">
+    <span class="absolute inset-0 bg-grid" aria-hidden="true"></span>
+    <span class="blob bg-brand-200/45 w-80 h-80 top-10 -right-24"></span>
+    <span class="blob bg-rose-200/40 w-72 h-72 bottom-10 -left-20"></span>
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6">
+      <!-- header -->
+      <div class="reveal flex flex-col sm:flex-row items-start sm:items-end gap-2 sm:gap-5 mb-6">
+        <span class="numoutline font-display text-[3.5rem] sm:text-8xl font-extrabold leading-[0.8] select-none">04</span>
+        <div class="pb-1">
+          <span class="text-xs font-bold tracking-[0.2em] uppercase text-rose-500">Powered by Innovation</span>
+          <h2 class="font-display text-3xl sm:text-5xl font-extrabold text-brand-900 leading-tight">Advanced <span class="grad-purple">Technology</span></h2>
+        </div>
+      </div>
+      <p class="reveal max-w-2xl text-brand-800/65 mb-12">
+        We house some of the most advanced cancer-fighting and diagnostic technologies —
+        engineered to improve accuracy, treatment outcomes and patient comfort.
+      </p>
+
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-5">
+        <!-- 1 -->
+        <figure class="reveal group rounded-2xl overflow-hidden bg-white ring-1 ring-brand-100 shadow-soft hover:shadow-card hover:-translate-y-1 transition">
+          <div class="zoom-wrap h-40 sm:h-44"><img src="https://images.unsplash.com/photo-1530026405186-ed1f139313f8?auto=format&fit=crop&w=500&q=70" alt="Siemens Prime Elite MRI" loading="lazy" class="w-full h-full object-cover" /></div>
+          <figcaption class="p-4">
+            <h3 class="font-display text-sm font-bold text-brand-900 leading-tight">Siemens Prime Elite</h3>
+            <p class="text-xs text-brand-500 mt-0.5">AI-Driven Fast MRI</p>
+          </figcaption>
+        </figure>
+        <!-- 2 -->
+        <figure class="reveal group rounded-2xl overflow-hidden bg-white ring-1 ring-brand-100 shadow-soft hover:shadow-card hover:-translate-y-1 transition">
+          <div class="zoom-wrap h-40 sm:h-44"><img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&w=500&q=70" alt="PET-CT Scanner" loading="lazy" class="w-full h-full object-cover" /></div>
+          <figcaption class="p-4">
+            <h3 class="font-display text-sm font-bold text-brand-900 leading-tight">PET-CT Scanner</h3>
+            <p class="text-xs text-brand-500 mt-0.5">Molecular &amp; Functional Imaging</p>
+          </figcaption>
+        </figure>
+        <!-- 3 -->
+        <figure class="reveal group rounded-2xl overflow-hidden bg-white ring-1 ring-brand-100 shadow-soft hover:shadow-card hover:-translate-y-1 transition">
+          <div class="zoom-wrap h-40 sm:h-44"><img src="https://images.unsplash.com/photo-1666214280557-f1b5022eb634?auto=format&fit=crop&w=500&q=70" alt="Multi-Slice CT" loading="lazy" class="w-full h-full object-cover" /></div>
+          <figcaption class="p-4">
+            <h3 class="font-display text-sm font-bold text-brand-900 leading-tight">Multi-Slice CT</h3>
+            <p class="text-xs text-brand-500 mt-0.5">High-Resolution Diagnostics</p>
+          </figcaption>
+        </figure>
+        <!-- 4 -->
+        <figure class="reveal group rounded-2xl overflow-hidden bg-white ring-1 ring-brand-100 shadow-soft hover:shadow-card hover:-translate-y-1 transition">
+          <div class="zoom-wrap h-40 sm:h-44"><img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=500&q=70" alt="4D Ultrasound" loading="lazy" class="w-full h-full object-cover" /></div>
+          <figcaption class="p-4">
+            <h3 class="font-display text-sm font-bold text-brand-900 leading-tight">4D Ultrasound</h3>
+            <p class="text-xs text-brand-500 mt-0.5">Real-Time Imaging</p>
+          </figcaption>
+        </figure>
+        <!-- 5 -->
+        <figure class="reveal group rounded-2xl overflow-hidden bg-white ring-1 ring-brand-100 shadow-soft hover:shadow-card hover:-translate-y-1 transition">
+          <div class="zoom-wrap h-40 sm:h-44"><img src="https://images.unsplash.com/photo-1628771065518-0d82f1938462?auto=format&fit=crop&w=500&q=70" alt="Digital X-Ray" loading="lazy" class="w-full h-full object-cover" /></div>
+          <figcaption class="p-4">
+            <h3 class="font-display text-sm font-bold text-brand-900 leading-tight">Digital X-Ray</h3>
+            <p class="text-xs text-brand-500 mt-0.5">Low-Dose Radiography</p>
+          </figcaption>
+        </figure>
+        <!-- 6 -->
+        <figure class="reveal group rounded-2xl overflow-hidden bg-white ring-1 ring-brand-100 shadow-soft hover:shadow-card hover:-translate-y-1 transition">
+          <div class="zoom-wrap h-40 sm:h-44"><img src="https://images.unsplash.com/photo-1581056771107-24ca5f033842?auto=format&fit=crop&w=500&q=70" alt="Digital Mammography" loading="lazy" class="w-full h-full object-cover" /></div>
+          <figcaption class="p-4">
+            <h3 class="font-display text-sm font-bold text-brand-900 leading-tight">Digital Mammography</h3>
+            <p class="text-xs text-brand-500 mt-0.5">Breast Cancer Screening</p>
+          </figcaption>
+        </figure>
+        <!-- 7 -->
+        <figure class="reveal group rounded-2xl overflow-hidden bg-white ring-1 ring-brand-100 shadow-soft hover:shadow-card hover:-translate-y-1 transition">
+          <div class="zoom-wrap h-40 sm:h-44"><img src="https://images.unsplash.com/photo-1579154204601-01588f351e67?auto=format&fit=crop&w=500&q=70" alt="Genetics and Molecular Lab" loading="lazy" class="w-full h-full object-cover" /></div>
+          <figcaption class="p-4">
+            <h3 class="font-display text-sm font-bold text-brand-900 leading-tight">Genetics &amp; Molecular Lab</h3>
+            <p class="text-xs text-brand-500 mt-0.5">Precision Diagnostics</p>
+          </figcaption>
+        </figure>
+        <!-- 8 -->
+        <figure class="reveal group rounded-2xl overflow-hidden bg-white ring-1 ring-brand-100 shadow-soft hover:shadow-card hover:-translate-y-1 transition">
+          <div class="zoom-wrap h-40 sm:h-44"><img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=500&q=70" alt="Linear Accelerator" loading="lazy" class="w-full h-full object-cover" /></div>
+          <figcaption class="p-4">
+            <h3 class="font-display text-sm font-bold text-brand-900 leading-tight">Linear Accelerator</h3>
+            <p class="text-xs text-brand-500 mt-0.5">Precision Radiation Therapy</p>
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
   <!-- ============ DIAGNOSTICS · STAGGERED PANELS ============ -->
   <section id="diagnostics" class="relative py-16 sm:py-24 bg-brand-950 text-white overflow-hidden">
     <span class="absolute inset-0 bg-grid-light" aria-hidden="true"></span>
@@ -720,7 +1114,7 @@
     <span class="blob bg-rose-500/25 w-80 h-80 bottom-10 -left-24"></span>
     <div class="relative max-w-7xl mx-auto px-4 sm:px-6">
       <div class="reveal flex flex-col sm:flex-row items-start sm:items-end gap-2 sm:gap-5 mb-12">
-        <span class="numoutline-light font-display text-[3.5rem] sm:text-8xl font-extrabold leading-[0.8] select-none">03</span>
+        <span class="numoutline-light font-display text-[3.5rem] sm:text-8xl font-extrabold leading-[0.8] select-none">05</span>
         <div class="pb-1">
           <span class="text-xs font-bold tracking-[0.2em] uppercase text-rose-300">State-of-the-Art Facilities</span>
           <h2 class="font-display text-3xl sm:text-5xl font-extrabold leading-tight">Diagnostics &amp; <span class="grad-rose">Laboratory Services</span></h2>
@@ -729,7 +1123,11 @@
 
       <div class="grid md:grid-cols-3 gap-6 items-start">
         <!-- panel 1 (staggered down) -->
-        <article class="reveal lg:mt-14 p-7 rounded-3xl bg-white/[0.06] ring-1 ring-white/10 backdrop-blur">
+        <article class="reveal lg:mt-14 p-7 rounded-3xl bg-white/[0.06] ring-1 ring-white/10 backdrop-blur overflow-hidden">
+          <div class="zoom-wrap relative -mx-7 -mt-7 mb-5 h-36">
+            <img src="https://images.unsplash.com/photo-1579154204601-01588f351e67?auto=format&fit=crop&w=600&q=70" alt="Laboratory tests" loading="lazy" class="w-full h-full object-cover" />
+            <span class="absolute inset-0 bg-gradient-to-t from-brand-950/60 to-transparent"></span>
+          </div>
           <span class="font-display text-sm font-bold text-brand-300">/ 01</span>
           <span class="w-14 h-14 grid place-items-center rounded-2xl bg-brand-500/25 text-brand-200 mt-3">
             <svg class="w-7 h-7 fill-none stroke-current" stroke-width="2" viewBox="0 0 24 24"><path d="M9 2v6L4 18a2 2 0 002 3h12a2 2 0 002-3l-5-10V2M8 2h8M7 14h10"/></svg>
@@ -748,7 +1146,11 @@
 
         <!-- panel 2 (peak / featured) -->
         <article class="reveal relative p-7 rounded-3xl bg-gradient-to-br from-rose-500 to-brand-600 shadow-card overflow-hidden">
-          <span class="absolute top-6 right-6 px-3 py-1 rounded-full bg-white/20 text-[11px] font-bold tracking-wide">Best-in-class</span>
+          <span class="absolute top-6 right-6 z-10 px-3 py-1 rounded-full bg-white/20 text-[11px] font-bold tracking-wide">Best-in-class</span>
+          <div class="zoom-wrap relative -mx-7 -mt-7 mb-5 h-36">
+            <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&w=600&q=70" alt="Imaging services" loading="lazy" class="w-full h-full object-cover" />
+            <span class="absolute inset-0 bg-gradient-to-t from-brand-900/55 to-transparent"></span>
+          </div>
           <span class="font-display text-sm font-bold text-white/70">/ 02</span>
           <span class="w-14 h-14 grid place-items-center rounded-2xl bg-white/20 mt-3">
             <svg class="w-7 h-7 fill-none stroke-white" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
@@ -765,7 +1167,11 @@
         </article>
 
         <!-- panel 3 (staggered down) -->
-        <article class="reveal lg:mt-14 p-7 rounded-3xl bg-white/[0.06] ring-1 ring-white/10 backdrop-blur">
+        <article class="reveal lg:mt-14 p-7 rounded-3xl bg-white/[0.06] ring-1 ring-white/10 backdrop-blur overflow-hidden">
+          <div class="zoom-wrap relative -mx-7 -mt-7 mb-5 h-36">
+            <img src="https://images.unsplash.com/photo-1628771065518-0d82f1938462?auto=format&fit=crop&w=600&q=70" alt="Digital services" loading="lazy" class="w-full h-full object-cover" />
+            <span class="absolute inset-0 bg-gradient-to-t from-brand-950/60 to-transparent"></span>
+          </div>
           <span class="font-display text-sm font-bold text-brand-300">/ 03</span>
           <span class="w-14 h-14 grid place-items-center rounded-2xl bg-rose-500/25 text-rose-200 mt-3">
             <svg class="w-7 h-7 fill-none stroke-current" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M2 21h20M10 17v4M14 17v4"/></svg>
@@ -792,12 +1198,131 @@
     </div>
   </section>
 
+  <!-- ============ HEALTH CHECKUP PACKAGES ============ -->
+  <section id="packages" class="relative py-20 bg-white overflow-hidden">
+    <span class="absolute inset-0 bg-grid" aria-hidden="true"></span>
+    <span class="blob bg-rose-200/40 w-80 h-80 -top-10 right-0"></span>
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6">
+      <!-- header -->
+      <div class="reveal flex flex-col sm:flex-row items-start sm:items-end gap-2 sm:gap-5 mb-6">
+        <span class="numoutline font-display text-[3.5rem] sm:text-8xl font-extrabold leading-[0.8] select-none">06</span>
+        <div class="pb-1">
+          <span class="text-xs font-bold tracking-[0.2em] uppercase text-rose-500">Stay Ahead of Illness</span>
+          <h2 class="font-display text-3xl sm:text-5xl font-extrabold text-brand-900 leading-tight">Health Checkup <span class="grad-purple">Packages</span></h2>
+        </div>
+      </div>
+      <p class="reveal max-w-2xl text-brand-800/65 mb-12">
+        Curated full-body screening packages with reports in 24 hours — guided by our doctors
+        and available with home sample collection.
+      </p>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- Male · Silver -->
+        <article class="reveal group rounded-3xl overflow-hidden bg-white ring-1 ring-brand-100 shadow-soft hover:shadow-card hover:-translate-y-1.5 transition flex flex-col">
+          <div class="zoom-wrap relative h-36">
+            <img src="https://images.unsplash.com/photo-1505751172876-fa1923c5c528?auto=format&fit=crop&w=500&q=70" alt="Male Silver Package" loading="lazy" class="w-full h-full object-cover" />
+            <span class="absolute inset-0 bg-gradient-to-t from-brand-950/65 to-transparent"></span>
+            <span class="absolute top-4 left-4 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/95 text-brand-600 text-[11px] font-bold">Male · Silver</span>
+          </div>
+          <div class="p-6 flex flex-col flex-1">
+            <div class="flex items-baseline gap-2">
+              <span class="font-display text-2xl font-extrabold grad-purple">40+</span>
+              <span class="text-xs text-brand-500">tests included</span>
+            </div>
+            <ul class="mt-4 space-y-2 text-sm text-brand-800/70 flex-1">
+              <li class="flex items-center gap-2"><svg class="w-4 h-4 stroke-rose-400 fill-none shrink-0" stroke-width="3" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>Complete Blood Count</li>
+              <li class="flex items-center gap-2"><svg class="w-4 h-4 stroke-rose-400 fill-none shrink-0" stroke-width="3" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>Blood Sugar &amp; Lipid Profile</li>
+              <li class="flex items-center gap-2"><svg class="w-4 h-4 stroke-rose-400 fill-none shrink-0" stroke-width="3" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>Liver &amp; Kidney Function</li>
+            </ul>
+            <div class="mt-5 pt-4 border-t border-brand-100 flex gap-2">
+              <a href="#contact" class="flex-1 inline-flex justify-center items-center px-3 py-2.5 rounded-xl ring-1 ring-brand-200 text-brand-700 text-sm font-semibold hover:ring-brand-400 transition">Know More</a>
+              <a href="#contact" class="flex-1 inline-flex justify-center items-center px-3 py-2.5 rounded-xl bg-gradient-to-r from-brand-600 to-rose-500 text-white text-sm font-semibold hover:-translate-y-0.5 transition">Book Now</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Female · Silver -->
+        <article class="reveal group rounded-3xl overflow-hidden bg-white ring-1 ring-brand-100 shadow-soft hover:shadow-card hover:-translate-y-1.5 transition flex flex-col">
+          <div class="zoom-wrap relative h-36">
+            <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=500&q=70" alt="Female Silver Package" loading="lazy" class="w-full h-full object-cover" />
+            <span class="absolute inset-0 bg-gradient-to-t from-brand-950/65 to-transparent"></span>
+            <span class="absolute top-4 left-4 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/95 text-brand-600 text-[11px] font-bold">Female · Silver</span>
+          </div>
+          <div class="p-6 flex flex-col flex-1">
+            <div class="flex items-baseline gap-2">
+              <span class="font-display text-2xl font-extrabold grad-purple">45+</span>
+              <span class="text-xs text-brand-500">tests included</span>
+            </div>
+            <ul class="mt-4 space-y-2 text-sm text-brand-800/70 flex-1">
+              <li class="flex items-center gap-2"><svg class="w-4 h-4 stroke-rose-400 fill-none shrink-0" stroke-width="3" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>Complete Blood Count</li>
+              <li class="flex items-center gap-2"><svg class="w-4 h-4 stroke-rose-400 fill-none shrink-0" stroke-width="3" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>Thyroid &amp; Iron Profile</li>
+              <li class="flex items-center gap-2"><svg class="w-4 h-4 stroke-rose-400 fill-none shrink-0" stroke-width="3" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>Vitamin D &amp; B12</li>
+            </ul>
+            <div class="mt-5 pt-4 border-t border-brand-100 flex gap-2">
+              <a href="#contact" class="flex-1 inline-flex justify-center items-center px-3 py-2.5 rounded-xl ring-1 ring-brand-200 text-brand-700 text-sm font-semibold hover:ring-brand-400 transition">Know More</a>
+              <a href="#contact" class="flex-1 inline-flex justify-center items-center px-3 py-2.5 rounded-xl bg-gradient-to-r from-brand-600 to-rose-500 text-white text-sm font-semibold hover:-translate-y-0.5 transition">Book Now</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Male · Gold (featured) -->
+        <article class="reveal group relative rounded-3xl overflow-hidden bg-gradient-to-br from-brand-600 to-brand-800 text-white shadow-card hover:-translate-y-1.5 transition flex flex-col">
+          <span class="absolute top-4 right-4 z-10 px-2.5 py-1 rounded-full bg-white/15 text-[10px] font-bold uppercase tracking-wide">Most Popular</span>
+          <div class="zoom-wrap relative h-36">
+            <img src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?auto=format&fit=crop&w=500&q=70" alt="Male Gold Package" loading="lazy" class="w-full h-full object-cover opacity-80" />
+            <span class="absolute inset-0 bg-gradient-to-t from-brand-800 via-brand-800/50 to-transparent"></span>
+            <span class="absolute top-4 left-4 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white text-brand-700 text-[11px] font-bold">Male · Gold</span>
+          </div>
+          <div class="p-6 flex flex-col flex-1">
+            <div class="flex items-baseline gap-2">
+              <span class="font-display text-2xl font-extrabold text-rose-200">70+</span>
+              <span class="text-xs text-white/70">tests included</span>
+            </div>
+            <ul class="mt-4 space-y-2 text-sm text-white/85 flex-1">
+              <li class="flex items-center gap-2"><svg class="w-4 h-4 stroke-rose-300 fill-none shrink-0" stroke-width="3" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>Everything in Silver</li>
+              <li class="flex items-center gap-2"><svg class="w-4 h-4 stroke-rose-300 fill-none shrink-0" stroke-width="3" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>Cardiac Markers &amp; ECG</li>
+              <li class="flex items-center gap-2"><svg class="w-4 h-4 stroke-rose-300 fill-none shrink-0" stroke-width="3" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>Cancer Marker Screening</li>
+            </ul>
+            <div class="mt-5 pt-4 border-t border-white/15 flex gap-2">
+              <a href="#contact" class="flex-1 inline-flex justify-center items-center px-3 py-2.5 rounded-xl ring-1 ring-white/30 text-white text-sm font-semibold hover:ring-white/60 transition">Know More</a>
+              <a href="#contact" class="flex-1 inline-flex justify-center items-center px-3 py-2.5 rounded-xl bg-white text-brand-700 text-sm font-semibold hover:-translate-y-0.5 transition">Book Now</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Female · Gold -->
+        <article class="reveal group rounded-3xl overflow-hidden bg-white ring-1 ring-brand-100 shadow-soft hover:shadow-card hover:-translate-y-1.5 transition flex flex-col">
+          <div class="zoom-wrap relative h-36">
+            <img src="https://images.unsplash.com/photo-1551076805-e1869033e561?auto=format&fit=crop&w=500&q=70" alt="Female Gold Package" loading="lazy" class="w-full h-full object-cover" />
+            <span class="absolute inset-0 bg-gradient-to-t from-brand-950/65 to-transparent"></span>
+            <span class="absolute top-4 left-4 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/95 text-rose-600 text-[11px] font-bold">Female · Gold</span>
+          </div>
+          <div class="p-6 flex flex-col flex-1">
+            <div class="flex items-baseline gap-2">
+              <span class="font-display text-2xl font-extrabold grad-purple">75+</span>
+              <span class="text-xs text-brand-500">tests included</span>
+            </div>
+            <ul class="mt-4 space-y-2 text-sm text-brand-800/70 flex-1">
+              <li class="flex items-center gap-2"><svg class="w-4 h-4 stroke-rose-400 fill-none shrink-0" stroke-width="3" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>Everything in Silver</li>
+              <li class="flex items-center gap-2"><svg class="w-4 h-4 stroke-rose-400 fill-none shrink-0" stroke-width="3" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>Hormonal &amp; PCOS Profile</li>
+              <li class="flex items-center gap-2"><svg class="w-4 h-4 stroke-rose-400 fill-none shrink-0" stroke-width="3" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>Breast &amp; Cervical Screening</li>
+            </ul>
+            <div class="mt-5 pt-4 border-t border-brand-100 flex gap-2">
+              <a href="#contact" class="flex-1 inline-flex justify-center items-center px-3 py-2.5 rounded-xl ring-1 ring-brand-200 text-brand-700 text-sm font-semibold hover:ring-brand-400 transition">Know More</a>
+              <a href="#contact" class="flex-1 inline-flex justify-center items-center px-3 py-2.5 rounded-xl bg-gradient-to-r from-brand-600 to-rose-500 text-white text-sm font-semibold hover:-translate-y-0.5 transition">Book Now</a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
   <!-- ============ DOCTORS · WAVE-STAGGERED ============ -->
-  <section id="doctors" class="relative py-20 overflow-hidden">
+  <section id="doctors" class="relative py-20 bg-brand-50/60 overflow-hidden">
     <span class="blob bg-rose-200/45 w-80 h-80 top-20 -right-24"></span>
     <div class="relative max-w-7xl mx-auto px-4 sm:px-6">
       <div class="reveal flex flex-col sm:flex-row items-start sm:items-end gap-2 sm:gap-5 mb-12">
-        <span class="numoutline font-display text-[3.5rem] sm:text-8xl font-extrabold leading-[0.8] select-none">04</span>
+        <span class="numoutline font-display text-[3.5rem] sm:text-8xl font-extrabold leading-[0.8] select-none">07</span>
         <div class="pb-1">
           <span class="text-xs font-bold tracking-[0.2em] uppercase text-rose-500">Our Team</span>
           <h2 class="font-display text-3xl sm:text-5xl font-extrabold text-brand-900 leading-tight">Meet Our <span class="grad-purple">Experts</span></h2>
@@ -809,6 +1334,101 @@
       </p>
 
       <div id="docGrid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+    </div>
+  </section>
+
+  <!-- ============ BLOGS + NEWS & MEDIA ============ -->
+  <section id="blog" class="relative py-20 bg-white overflow-hidden">
+    <span class="absolute inset-0 bg-grid" aria-hidden="true"></span>
+    <span class="blob bg-brand-200/45 w-80 h-80 top-10 -left-24"></span>
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6">
+      <!-- header -->
+      <div class="reveal flex flex-col sm:flex-row items-start sm:items-end gap-2 sm:gap-5 mb-12">
+        <span class="numoutline font-display text-[3.5rem] sm:text-8xl font-extrabold leading-[0.8] select-none">08</span>
+        <div class="pb-1">
+          <span class="text-xs font-bold tracking-[0.2em] uppercase text-rose-500">Health Library</span>
+          <h2 class="font-display text-3xl sm:text-5xl font-extrabold text-brand-900 leading-tight">Our <span class="grad-purple">Blogs</span></h2>
+        </div>
+      </div>
+
+      <!-- blog cards -->
+      <div class="grid md:grid-cols-3 gap-6">
+        <article class="reveal group rounded-3xl overflow-hidden bg-white ring-1 ring-brand-100 shadow-soft hover:shadow-card hover:-translate-y-1.5 transition flex flex-col">
+          <div class="zoom-wrap relative h-48">
+            <img src="https://images.unsplash.com/photo-1631217868264-e5b90bb7e133?auto=format&fit=crop&w=600&q=70" alt="Early signs of cancer" loading="lazy" class="w-full h-full object-cover" />
+            <span class="absolute top-4 left-4 px-2.5 py-1 rounded-full bg-white/95 text-brand-600 text-[11px] font-bold">Awareness</span>
+          </div>
+          <div class="p-6 flex flex-col flex-1">
+            <h3 class="font-display text-lg font-bold text-brand-900 leading-snug">Understanding the Early Signs of Cancer</h3>
+            <p class="mt-2 text-sm text-brand-800/65 flex-1">Recognising the subtle warning signs early can dramatically improve treatment outcomes. Here's what to watch for.</p>
+            <a href="#contact" class="mt-4 inline-flex w-fit items-center gap-1.5 text-sm font-semibold text-rose-500 group-hover:gap-3 transition-all">Read More <span>&rarr;</span></a>
+          </div>
+        </article>
+
+        <article class="reveal group rounded-3xl overflow-hidden bg-white ring-1 ring-brand-100 shadow-soft hover:shadow-card hover:-translate-y-1.5 transition flex flex-col">
+          <div class="zoom-wrap relative h-48">
+            <img src="https://images.unsplash.com/photo-1666214280557-f1b5022eb634?auto=format&fit=crop&w=600&q=70" alt="Immunotherapy explained" loading="lazy" class="w-full h-full object-cover" />
+            <span class="absolute top-4 left-4 px-2.5 py-1 rounded-full bg-white/95 text-brand-600 text-[11px] font-bold">Treatment</span>
+          </div>
+          <div class="p-6 flex flex-col flex-1">
+            <h3 class="font-display text-lg font-bold text-brand-900 leading-snug">Immunotherapy: How It Works &amp; What to Expect</h3>
+            <p class="mt-2 text-sm text-brand-800/65 flex-1">A clear, patient-friendly guide to how immunotherapy harnesses your body's own defences to fight cancer.</p>
+            <a href="#contact" class="mt-4 inline-flex w-fit items-center gap-1.5 text-sm font-semibold text-rose-500 group-hover:gap-3 transition-all">Read More <span>&rarr;</span></a>
+          </div>
+        </article>
+
+        <article class="reveal group rounded-3xl overflow-hidden bg-white ring-1 ring-brand-100 shadow-soft hover:shadow-card hover:-translate-y-1.5 transition flex flex-col">
+          <div class="zoom-wrap relative h-48">
+            <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&w=600&q=70" alt="Breast screening" loading="lazy" class="w-full h-full object-cover" />
+            <span class="absolute top-4 left-4 px-2.5 py-1 rounded-full bg-white/95 text-brand-600 text-[11px] font-bold">Screening</span>
+          </div>
+          <div class="p-6 flex flex-col flex-1">
+            <h3 class="font-display text-lg font-bold text-brand-900 leading-snug">Why Regular Breast Screening Saves Lives</h3>
+            <p class="mt-2 text-sm text-brand-800/65 flex-1">Early detection through routine screening is the single most effective tool against breast cancer. Here's why.</p>
+            <a href="#contact" class="mt-4 inline-flex w-fit items-center gap-1.5 text-sm font-semibold text-rose-500 group-hover:gap-3 transition-all">Read More <span>&rarr;</span></a>
+          </div>
+        </article>
+      </div>
+
+      <!-- News & Media -->
+      <div class="reveal mt-16 sm:mt-20">
+        <div class="flex items-center gap-4 mb-10">
+          <h3 class="font-display text-2xl font-bold text-brand-900 shrink-0">News &amp; Media</h3>
+          <span class="flex-1 h-px bg-brand-200"></span>
+          <span class="hidden sm:inline text-sm font-medium text-brand-500">AIROC in the headlines</span>
+        </div>
+        <div class="grid md:grid-cols-3 gap-6">
+          <a href="#contact" class="reveal group relative block rounded-3xl overflow-hidden shadow-card min-h-[230px]">
+            <img src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?auto=format&fit=crop&w=600&q=70" alt="AIROC news" loading="lazy" class="absolute inset-0 w-full h-full object-cover transition duration-700 group-hover:scale-105" />
+            <span class="absolute inset-0 bg-gradient-to-t from-brand-950/90 via-brand-900/45 to-brand-700/30"></span>
+            <div class="relative p-6 h-full flex flex-col justify-end">
+              <span class="inline-flex w-fit px-2.5 py-1 rounded-full bg-rose-500 text-white text-[10px] font-bold uppercase tracking-wide">AIROC in News</span>
+              <h4 class="font-display text-lg font-bold text-white mt-3 leading-snug">AIROC Hospitals opens its 100-bed speciality facility</h4>
+              <span class="mt-2 inline-flex items-center gap-1.5 text-sm font-semibold text-rose-200 group-hover:gap-3 transition-all">Read More <span>&rarr;</span></span>
+            </div>
+          </a>
+
+          <a href="#contact" class="reveal group relative block rounded-3xl overflow-hidden shadow-card min-h-[230px]">
+            <img src="https://images.unsplash.com/photo-1505751172876-fa1923c5c528?auto=format&fit=crop&w=600&q=70" alt="AIROC screening camp" loading="lazy" class="absolute inset-0 w-full h-full object-cover transition duration-700 group-hover:scale-105" />
+            <span class="absolute inset-0 bg-gradient-to-t from-brand-950/90 via-brand-800/45 to-brand-600/30"></span>
+            <div class="relative p-6 h-full flex flex-col justify-end">
+              <span class="inline-flex w-fit px-2.5 py-1 rounded-full bg-brand-500 text-white text-[10px] font-bold uppercase tracking-wide">AIROC in News</span>
+              <h4 class="font-display text-lg font-bold text-white mt-3 leading-snug">Free cancer-screening camp reaches 500+ patients</h4>
+              <span class="mt-2 inline-flex items-center gap-1.5 text-sm font-semibold text-rose-200 group-hover:gap-3 transition-all">Read More <span>&rarr;</span></span>
+            </div>
+          </a>
+
+          <a href="#contact" class="reveal group relative block rounded-3xl overflow-hidden shadow-card min-h-[230px]">
+            <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=600&q=70" alt="AIROC new MRI" loading="lazy" class="absolute inset-0 w-full h-full object-cover transition duration-700 group-hover:scale-105" />
+            <span class="absolute inset-0 bg-gradient-to-t from-brand-950/90 via-rose-900/45 to-rose-600/30"></span>
+            <div class="relative p-6 h-full flex flex-col justify-end">
+              <span class="inline-flex w-fit px-2.5 py-1 rounded-full bg-rose-500 text-white text-[10px] font-bold uppercase tracking-wide">AIROC in News</span>
+              <h4 class="font-display text-lg font-bold text-white mt-3 leading-snug">AIROC installs Siemens Prime Elite AI-driven MRI</h4>
+              <span class="mt-2 inline-flex items-center gap-1.5 text-sm font-semibold text-rose-200 group-hover:gap-3 transition-all">Read More <span>&rarr;</span></span>
+            </div>
+          </a>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -885,19 +1505,20 @@
         <div class="flex flex-col gap-2.5 text-sm">
           <a href="#home" class="hover:text-white transition">Home</a>
           <a href="#about" class="hover:text-white transition">About Us</a>
+          <a href="#services" class="hover:text-white transition">Oncology Services</a>
           <a href="#departments" class="hover:text-white transition">Centers of Excellence</a>
           <a href="#doctors" class="hover:text-white transition">Our Doctors</a>
-          <a href="#" class="hover:text-white transition">Careers</a>
+          <a href="#blog" class="hover:text-white transition">Health Library</a>
         </div>
       </div>
       <div>
         <h5 class="font-display font-bold text-white mb-4">Our Services</h5>
         <div class="flex flex-col gap-2.5 text-sm">
           <a href="#diagnostics" class="hover:text-white transition">Blood Tests</a>
-          <a href="#diagnostics" class="hover:text-white transition">Radiology &amp; Imaging</a>
-          <a href="#diagnostics" class="hover:text-white transition">Health Checkup Packages</a>
+          <a href="#technology" class="hover:text-white transition">Radiology &amp; Imaging</a>
+          <a href="#packages" class="hover:text-white transition">Health Checkup Packages</a>
           <a href="#diagnostics" class="hover:text-white transition">Home Sample Collection</a>
-          <a href="#diagnostics" class="hover:text-white transition">Preventive Screening</a>
+          <a href="#services" class="hover:text-white transition">Preventive Screening</a>
         </div>
       </div>
       <div>
