@@ -108,24 +108,24 @@
 
   /* ---------- Doctors data + render ---------- */
   var doctors = [
-    { p: 'https://randomuser.me/api/portraits/women/44.jpg', n: 'Dr. Sowmya Maddireddy', r: 'Founder & Director',
-      d: 'Dental surgeon with 15+ years in clinical dentistry and healthcare management, overseeing clinical quality and operations.' },
-    { p: 'https://randomuser.me/api/portraits/men/32.jpg', n: 'Dr. Vinodh Maddireddy', r: 'Founder & Director',
-      d: 'Distinguished Radiation Oncologist with 15+ years of experience in advanced cancer treatment and comprehensive patient care.' },
-    { p: 'https://randomuser.me/api/portraits/men/45.jpg', n: 'Dr. G Uday Kiran', r: 'Director of Surgical Services',
-      d: 'Meticulous, visionary surgeon with 15+ years of experience delivering painless surgeries and exceptional clinical outcomes.' },
-    { p: 'https://randomuser.me/api/portraits/women/68.jpg', n: 'Dr. Manasa Mynepally', r: 'Consultant Endocrinologist',
-      d: 'Research-driven endocrinologist and diabetologist with 10+ years managing diabetes, thyroid, PCOS and fertility issues.' },
-    { p: 'https://randomuser.me/api/portraits/men/52.jpg', n: 'Dr. C Raghavendra Reddy', r: 'Medical & Hemato Oncology',
-      d: 'Two-time gold medalist specialising in breast, lung and blood cancers, delivering personalised, evidence-based cancer care.' },
-    { p: 'https://randomuser.me/api/portraits/women/65.jpg', n: 'Dr. K Harini', r: 'Nuclear Medicine Physician',
-      d: 'Expertise in advanced diagnostic imaging and targeted radionuclide therapies, with specialised PET-CT imaging experience.' },
-    { p: 'https://randomuser.me/api/portraits/women/21.jpg', n: 'Dr. Indu Varshini', r: 'Consultant General Medicine',
-      d: 'General physician experienced in outpatient, inpatient and emergency care, including Medical Intensive Care (MICU).' },
-    { p: 'https://randomuser.me/api/portraits/women/26.jpg', n: 'Dr. Sri Lekha', r: 'Consultant Anesthesiologist',
-      d: 'Specialises in general and regional anesthesia, difficult airway management, pediatric anesthesia and ICU management.' },
-    { p: 'https://randomuser.me/api/portraits/women/90.jpg', n: 'Dr. Sowmya P', r: 'Consultant Dermatologist',
-      d: 'Skilled dermatologist (MBBS, MD DVL) with expertise in clinical dermatology, dermatosurgery, aesthetics and skin cancer care.' }
+    { p: 'assets/images/doctors/dr-sowmya-maddireddy.webp', n: 'Dr. Sowmya Maddireddy', r: 'Founder & Director',
+      d: 'Dr. Sowmya Maddireddy is a dental surgeon with 15+ years of experience in clinical dentistry and healthcare management. She completed her BDS in 2008, an internship at Meenakshi Dental College, and Endodontic training under Dr. Jacob Paul. As Director of Airoc Healthcare Pvt. Ltd., she oversees clinical quality and operations.' },
+    { p: 'assets/images/doctors/dr-vinodh-maddireddy.webp', n: 'Dr. Vinodh Maddireddy', r: 'Founder & Director',
+      d: 'Distinguished Radiation Oncologist with over 15 years of experience in advanced cancer treatment and comprehensive patient care.' },
+    { p: 'assets/images/doctors/dr-g-uday-kiran.jpg', n: 'Dr. G Uday Kiran', r: 'Director of Surgical Services',
+      d: 'Expert, meticulous and visionary surgeon with over 13 years of experience delivering painless surgeries and exceptional clinical outcomes.' },
+    { p: 'assets/images/doctors/dr-manasa-mynepally.webp', n: 'Dr. Manasa Mynepally', r: 'Consultant Endocrinologist',
+      d: 'Research-driven and compassionate Endocrinologist and Diabetologist with over 10 years of expertise managing Diabetes, Thyroid, PCOS, Obesity and Fertility issues.' },
+    { p: 'assets/images/doctors/dr-c-raghavendra-reddy.webp', n: 'Dr. C Raghavendra Reddy', r: 'Consultant Medical Oncology & Hemato Oncology',
+      d: 'An expert in medical and hemato-oncology, he is a two-time gold medalist specialising in breast, lung and blood cancers. He delivers personalised, evidence-based care, combining advanced treatments with a patient-centric approach to ensure compassionate and effective cancer management.' },
+    { p: 'assets/images/doctors/dr-k-harini.webp', n: 'Dr. K Harini', r: 'Consultant Nuclear Medicine Physician',
+      d: 'She has expertise in advanced diagnostic imaging and targeted radionuclide therapies, with specialised experience in PET-CT imaging. Her clinical focus includes oncological and non-oncological imaging.' },
+    { p: 'assets/images/doctors/dr-indu-varshini.webp', n: 'Dr. Indu Varshini', r: 'Consultant General Medicine',
+      d: 'General Physician experienced in comprehensive patient care across outpatient, inpatient and emergency settings. Expertise includes diagnosing and managing a wide range of acute and chronic medical conditions and Medical Intensive Care Unit (MICU).' },
+    { p: 'assets/images/doctors/dr-sri-lekha.webp', n: 'Dr. Sri Lekha', r: 'Consultant Anesthesiologist',
+      d: 'Specialises in general and regional anesthesia, difficult airway management, pediatric anesthesia, ICU management and emergency stabilisation.' },
+    { p: 'assets/images/doctors/dr-sowmya-p.webp', n: 'Dr. Sowmya P', r: 'Consultant Dermatologist',
+      d: 'Dr. Sowmya P is a skilled dermatologist (MBBS, MD DVL) with expertise in clinical dermatology, dermatosurgery, aesthetics and skin cancer management. Trained at Kakatiya and Osmania Medical Colleges, she has presented award-winning research and published in reputed journals. Dedicated and patient-focused, she is committed to advancing skin care through innovation.' }
   ];
   var docGrid = document.getElementById('docGrid');
   if (docGrid) {
@@ -133,7 +133,7 @@
       return [
         '<article class="reveal group p-6 rounded-3xl bg-white ring-1 ring-brand-100 shadow-soft hover:shadow-card hover:-translate-y-1.5 transition text-center">',
         '  <div class="mx-auto w-32 h-32 rounded-full overflow-hidden ring-4 ring-brand-50 shadow-soft">',
-        '    <img src="' + doc.p + '" alt="' + doc.n + '" loading="lazy" width="128" height="128" class="w-full h-full object-cover transition duration-500 group-hover:scale-105" />',
+        '    <img src="' + doc.p + '" alt="' + doc.n + '" loading="lazy" class="w-full h-full object-cover transition duration-500 group-hover:scale-105" />',
         '  </div>',
         '  <h4 class="font-display font-bold text-brand-900 leading-tight mt-4">' + doc.n + '</h4>',
         '  <span class="text-sm font-semibold text-rose-500">' + doc.r + '</span>',
@@ -227,7 +227,7 @@
   /* ---------- Unified scroll loop (rAF-throttled) ---------- */
   var header   = document.getElementById('header');
   var progress = document.getElementById('progress');
-  var sections = ['home', 'services', 'departments', 'diagnostics', 'packages', 'doctors', 'blog', 'contact'];
+  var sections = ['home', 'about', 'diagnostics', 'doctors', 'blog', 'contact'];
   var navLinks = document.querySelectorAll('#nav a.nav-link');
   var lastY = window.scrollY, ticking = false;
 
